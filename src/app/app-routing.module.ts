@@ -8,12 +8,15 @@ import { ConfiguracionComponent } from './components/configuracion/configuracion
 import { EditarClienteComponent } from './components/editar-cliente/editar-cliente.component';
 import { NoPageComponent } from './components/no-page/no-page.component';
 
+import { AuthGuard } from './guards/auth.guard';
+import { ConfigGuard } from './guards/config.guard';
+
 const routes: Routes = [
-  { path: '', component: TableroComponent },
+  { path: '', component: TableroComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: 'configuracion', component: ConfiguracionComponent },
-  { path: 'cliente/editar/:id', component: EditarClienteComponent },
+  { path: 'register', component: RegisterComponent, canActivate: [ConfigGuard] },
+  { path: 'configuracion', component: ConfiguracionComponent, canActivate: [AuthGuard] },
+  { path: 'cliente/editar/:id', component: EditarClienteComponent, canActivate: [AuthGuard] },
   { path: '**', component: NoPageComponent }
 ];
 
